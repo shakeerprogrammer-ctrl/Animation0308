@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Animation Editor</title>
+    <style>
+        body {
+              font-family: Arial, sans-serif;
+                    background: #000;
+                          color: white;
+                                text-align: center;
+                                      padding: 20px;
+                                          }
+                                              input {
+                                                    width: 90%;
+                                                          max-width: 400px;
+                                                                padding: 10px;
+                                                                      margin: 8px 0;
+                                                                          }
+                                                                              button {
+                                                                                    padding: 10px 20px;
+                                                                                          background: #00ccff;
+                                                                                                border: none;
+                                                                                                      border-radius: 8px;
+                                                                                                            cursor: pointer;
+                                                                                                                }
+                                                                                                                    #preview {
+                                                                                                                          margin-top: 20px;
+                                                                                                                                border: 2px dashed #555;
+                                                                                                                                      padding: 15px;
+                                                                                                                                          }
+                                                                                                                                            </style>
+                                                                                                                                            </head>
+                                                                                                                                            <body>
+
+                                                                                                                                            <h1>✏️ Animation Editor</h1>
+
+                                                                                                                                            <p>Paste Image URL:</p>
+                                                                                                                                            <input type="text" id="imgInput" placeholder="https://example.com/photo.jpg">
+
+                                                                                                                                            <p>Enter Message:</p>
+                                                                                                                                            <input type="text" id="msgInput" placeholder="Your message">
+
+                                                                                                                                            <br><br>
+                                                                                                                                            <button onclick="applyChanges()">Apply Changes</button>
+
+                                                                                                                                            <hr>
+
+                                                                                                                                            <h2>Preview:</h2>
+                                                                                                                                            <div id="preview">Loading animation...</div>
+
+                                                                                                                                            <script>
+                                                                                                                                            const params = new URLSearchParams(window.location.search);
+                                                                                                                                            const animName = params.get("anim");
+
+                                                                                                                                            fetch(animName + ".html")
+                                                                                                                                              .then(res => res.text())
+                                                                                                                                                .then(html => {
+                                                                                                                                                    document.getElementById("preview").innerHTML = html;
+                                                                                                                                                      })
+                                                                                                                                                        .catch(() => {
+                                                                                                                                                            document.getElementById("preview").innerHTML = "Animation not found.";
+                                                                                                                                                              });
+
+                                                                                                                                                              function applyChanges() {
+                                                                                                                                                                const img = document.getElementById("imgInput").value;
+                                                                                                                                                                  const msg = document.getElementById("msgInput").value;
+
+                                                                                                                                                                    const preview = document.getElementById("preview");
+
+                                                                                                                                                                      const imageEl = preview.querySelector("img");
+                                                                                                                                                                        const textEl = preview.querySelector("h1");
+
+                                                                                                                                                                          if (imageEl) imageEl.src = img;
+                                                                                                                                                                            if (textEl) textEl.innerText = msg;
+                                                                                                                                                                            }
+                                                                                                                                                                            </script>
+
+                                                                                                                                                                            </body>
+                                                                                                                                                                            </html>
